@@ -9,9 +9,9 @@ class Registration(models.Model):
     username = models.CharField(max_length=30, unique=True)
     email = models.EmailField(max_length=100, unique=True)
     password = models.CharField(max_length=100)
-    confirm_password = models.CharField(max_length=100)
+    confirm_password = models.CharField(max_length=10)
 
     def __str__(self):
-        return str(self)
+        return self.first_name
 
     
