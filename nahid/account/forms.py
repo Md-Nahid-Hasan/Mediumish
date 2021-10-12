@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.forms.widgets import Widget
-from .models import Registration
+# from .models import Registration
 
 class UserCreationForm(forms.ModelForm):
 
@@ -51,7 +51,7 @@ class UserCreationForm(forms.ModelForm):
         password1 = self.cleaned_data.get("password1")
         
         if len(password1) < 6:
-            raise ValidationError("Password is too short!")
+            raise ValidationError(" is too short!")
 
         return password1
 
@@ -60,10 +60,10 @@ class UserCreationForm(forms.ModelForm):
         password2 = self.cleaned_data.get("password2")
 
         if len(password2) < 6:
-            raise ValidationError("Password is too short!")
+            raise ValidationError(" is too short!")
 
         if password1 != password2:
-            raise ValidationError("Password did not match")
+            raise ValidationError(" did not match")
 
         return password2
 
@@ -74,3 +74,8 @@ class UserCreationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+class LoginForm(forms.Form):
+    """user login form"""
+    email = forms.EmailField()
+    password = forms.CharField(widget=forms.PasswordInput())

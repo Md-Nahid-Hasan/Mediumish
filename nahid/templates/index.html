@@ -28,7 +28,7 @@
 </button>
 <div class="container">
 	<!-- Begin Logo -->
-	<a class="navbar-brand" href="index.html">
+	<a class="navbar-brand" href="{% url 'index' %}">
 	<img src="{% static 'assets/img/logo.png' %}" alt="logo">
 	</a>
 	<!-- End Logo -->
@@ -36,14 +36,21 @@
 		<!-- Begin Menu -->
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item active">
-			<a class="nav-link" href="index.html">Stories <span class="sr-only">(current)</span></a>
+			<a class="nav-link" href="{% url 'index' %}">Stories <span class="sr-only">(current)</span></a>
+			</li>
+			{% if user.is_authenticated %}
+			<!-- <li>Hello,{{ user.username }}</li> -->
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'userlogout' %}">Logout</a> 
+			</li>
+			{% else %}
+			<li class="nav-item">
+			<a class="nav-link" href="{% url 'register' %}">Register</a>
 			</li>
 			<li class="nav-item">
-			<a class="nav-link" href="account/register">Register</a>
+				<a class="nav-link" href="{% url 'account_login' %}">Login</a> 
 			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="login.html">Login</a> 
-			</li>
+			{% endif %}
 		</ul>
 		<!-- End Menu -->
 		<!-- Begin Search -->
@@ -90,6 +97,7 @@
 
 		<!-- begin post -->
 		{% for object in object_list %}
+		{% if request.user.is_authenticated %}
 		<div class="card">
 			<div class="row">
 				<div class="col-md-5 wrapthumbnail">
@@ -121,12 +129,10 @@
 			</div>
 		</div>
 
-		{% endfor %}
-		<!-- end post -->
-
-		<!-- begin post -->
 		
+		{% endif %}
 
+		{% endfor %}
 	</div>
 	</section>
 	<!-- End Featured
